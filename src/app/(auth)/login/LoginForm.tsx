@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { loginSchema, LoginValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { login } from "./actions";
+import { PasswordInput } from "@/components/PasswordInput";
 
 export default function LoginForm() {
   const [error, setError] = useState<string>();
@@ -57,7 +58,7 @@ export default function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Password" {...field} />
+                <PasswordInput placeholder="Password" />
               </FormControl>
               <FormMessage />
             </FormItem>
