@@ -16,6 +16,7 @@ import { loginSchema, LoginValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { login } from "./actions";
 import { PasswordInput } from "@/components/PasswordInput";
+import LoadingButton from "@/components/LoadingButton";
 
 export default function LoginForm() {
   const [error, setError] = useState<string>();
@@ -64,9 +65,9 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <LoadingButton loading={isPending} type="submit" className="w-full">
           Log in
-        </Button>
+        </LoadingButton>
       </form>
     </Form>
   );

@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUp } from "./actions";
 import { PasswordInput } from "@/components/PasswordInput";
+import LoadingButton from "@/components/LoadingButton";
 
 export default function SignUpForm() {
   const [error, setError] = useState<string>();
@@ -80,9 +81,9 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <LoadingButton loading={isPending} type="submit" className="w-full">
           Create account
-        </Button>
+        </LoadingButton>
       </form>
     </Form>
   );
