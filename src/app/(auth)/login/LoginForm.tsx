@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/form";
 import React, { useState, useTransition } from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { loginSchema, LoginValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -43,6 +42,7 @@ export default function LoginForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         {error && <p className="text-center text-destructive">{error}</p>}
         <FormField
+          control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
@@ -55,12 +55,13 @@ export default function LoginForm() {
           )}
         />
         <FormField
+          control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <PasswordInput placeholder="Password" />
+                <PasswordInput placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
