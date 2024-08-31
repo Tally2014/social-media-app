@@ -10,11 +10,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signUpSchema, SignUpValues } from "@/lib/validation";
-import React from "react";
+import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signUp } from "./actions";
 
 export default function SignUpForm() {
+  const [error, setError] = useState<string>();
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -24,9 +28,18 @@ export default function SignUpForm() {
     },
   });
 
+  async function onSubmit(values: SignUpValues) {
+    setError(undefined);
+    startTransition(async () => {
+      const { error } = await signUp(values);
+      if (error) setError(error);
+    });
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-3">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+        {error && <p className="text-center text-destructive">{error}</p>}
         <FormField
           control={form.control}
           name="username"
@@ -66,7 +79,9 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button className="w-full">Create account</Button>
+        <Button type="submit" className="w-full">
+          Create account
+        </Button>
       </form>
     </Form>
   );
