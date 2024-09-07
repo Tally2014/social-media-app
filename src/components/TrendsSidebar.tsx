@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import React, { Suspense } from "react";
 import UserAvatar from "./UserAvatar";
+import { Button } from "./ui/button";
 
 export default function TrendsSidebar() {
   return (
@@ -49,6 +50,7 @@ async function WhoToFollow() {
               </p>
             </div>
           </Link>
+          <Button>Follow</Button>
         </div>
       ))}
     </div>
